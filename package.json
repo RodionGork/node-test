@@ -1,0 +1,21 @@
+{
+  "name": "nodetest",
+  "version": "1.0.0",
+  "description": "Test node.js application",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app",
+    "pretest": "jscs src test",
+    "test": "mocha test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jscs": "^3.0.7",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
+  }
+}
