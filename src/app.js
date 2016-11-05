@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const engine = require('express-dot-engine');
+const crypt = require('./crypt');
 
 const statics = require('./statics');
 const init = require('./init');
@@ -30,6 +31,13 @@ function testHandler(req, res) {
     }
 }
 
+function cryptHandler(req, res) {
+    let id = req.params['id'];
+    const dir = id.length < 10;
+    const cipher = crypt(id, dir);
+    res.send(cipher + ' ' + dir);
+}
+
 function startWebEngine() {
     app.engine('html', engine.__express);
     app.set('views', __dirname + '/views');
@@ -41,17 +49,26 @@ function startWebEngine() {
     app.get('/auth', authHandler);
     app.get('/test/:name/:age', testHandler);
     app.get('/test/:name', testHandler);
+    app.get('/crypt/:id', cryptHandler);
 
     app.listen(HTTP_PORT, () => {
         console.log('listening on ' + HTTP_PORT);
     });
 }
 
+function startEmergencyWebEngine(err) {
+    app.get('/', (req, res) => {
+        res.send('Initialization error: ' + err);
+    });
+    app.listen(HTTP_PORT, () => {});
+}
+
 init(err => {
     if (err) {
-        console.log('Initialization error:');
-        process.exit(1);
+        console.log('Initialization error:' + err);
+        startEmergencyWebEngine(err);
+    } else {
+        startWebEngine();
     }
-    startWebEngine();
 });
 
