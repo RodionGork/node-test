@@ -1,9 +1,5 @@
 {
   "dev": {
-    "vk": {
-      "appId": 1000000,
-      "secret": "secretslivehere"
-    },
     "mongo": {
       "url": "mongodb://localhost/test"
     }
