@@ -12,5 +12,5 @@ module.exports = function(callback) {
     var db = mg.connection;
     db.on('error', () => callback('DB connection error'));
     db.once('open', callback);
-}
+};
 

@@ -5,14 +5,13 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app",
-    "pretest": "jscs src test",
+    "pretest": "eslint src test",
     "test": "mocha test"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^3.9.1",
-    "jscs": "^3.0.7",
     "mocha": "^3.1.2"
   },
   "dependencies": {

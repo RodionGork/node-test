@@ -52,7 +52,7 @@ function startWebEngine() {
     app.get('/crypt/:id', cryptHandler);
 
     app.listen(HTTP_PORT, () => {
-        console.log('listening on ' + HTTP_PORT);
+        console.warn('listening on ' + HTTP_PORT);
     });
 }
 
@@ -65,7 +65,7 @@ function startEmergencyWebEngine(err) {
 
 init(err => {
     if (err) {
-        console.log('Initialization error:' + err);
+        console.warn('Initialization error:' + err);
         startEmergencyWebEngine(err);
     } else {
         startWebEngine();
