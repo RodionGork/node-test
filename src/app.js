@@ -21,12 +21,12 @@ function testHandler(req, res) {
     let name = req.params['name'];
     let age = req.params['age'];
     if (age) {
-        new userModel({name: name, age: age, _id: '' + new Date().getTime()}).save(err => {
+        new userModel({name: name, year: age, _id: '' + new Date().getTime()}).save(err => {
             res.send('User ' + name + ' saved!\n' + err);
         });
     } else {
         userModel.findOne({name: name}, (err, u) => {
-            res.send('User\'s age is ' + u.age);
+            res.send(u ? ('User\'s age is ' + u.year) : 'User not found');
         });
     }
 }
@@ -47,8 +47,7 @@ function startWebEngine() {
 
     app.get('/', rootHandler);
     app.get('/auth', authHandler);
-    app.get('/test/:name/:age', testHandler);
-    app.get('/test/:name', testHandler);
+    app.get('/test/:name/:age?', testHandler);
     app.get('/crypt/:id', cryptHandler);
 
     app.listen(HTTP_PORT, () => {

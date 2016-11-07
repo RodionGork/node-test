@@ -8,9 +8,11 @@ module.exports = function(callback) {
         callback('Settings error: ' + e);
         return;
     }
-    mg.connect(secrets.mongo.url);
+    mg.connect(secrets.mongo.url,
+        { server: { socketOptions: { }}}
+    );
     var db = mg.connection;
-    db.on('error', () => callback('DB connection error'));
+    db.on('error', (err) => callback('DB connection error: ' + err));
     db.once('open', callback);
 };
 
